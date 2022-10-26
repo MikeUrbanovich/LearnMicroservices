@@ -18,23 +18,32 @@ namespace Catalog.API.Controllers
         }
 
         [HttpGet("GetProducts")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IEnumerable<Product> GetProducts()
         {
             return _dataContext.Products;
         }
 
-        [HttpGet("TestGetForUser")]
-        [Authorize(Roles = "User")]
-        public IActionResult TestGetForUser()
+        [HttpPost("AddProduct")]
+        public IActionResult AddProduct(Product newProduct)
         {
-            return Ok("OK");
+            if(!_dataContext.Products.Contains(newProduct))
+                _dataContext.Products.Add(newProduct);
+
+            return Ok();
         }
 
-        [HttpGet("TestGet")]
-        public IActionResult TestGet()
-        {
-            return Ok("OK");
-        }
+        //[HttpGet("TestGetForUser")]
+        ////[Authorize(Roles = "User")]
+        //public IActionResult TestGetForUser()
+        //{
+        //    return Ok("OK");
+        //}
+
+        //[HttpGet("TestGet")]
+        //public IActionResult TestGet()
+        //{
+        //    return Ok("OK");
+        //}
     }
 }
